@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<title>Lectio To Calendar</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+	<!-- Custom fonts for this template -->
+	<script src="https://kit.fontawesome.com/614436aae0.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+		type="text/css" />
+
+	<!-- Custom styles for this template -->
+	<link href="./css/landing-page.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-light bg-white fixed-top navbar-expand-sm">
+		<div class="container">
+			<a class="navbar-brand text-info" href="#">
+				<i class="far fa-calendar-alt"></i> Lectio To Calendar
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar-list-4">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img id="loggedInUserImage" src="https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"
+								width="40" height="40" class="rounded-circle">
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<p class="dropdown-item"><b>Logged in as:</b><br><span id="loggedInUserName">Not Logged In!</span><br><i><span id="loggedInUserEmail">Not Logged In!</span></i></p>
+							<div class="dropdown-divider"></div>
+							<button class="dropdown-item" id="logoutButton">Logout</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Masthead -->
+	<header class="masthead text-white text-center">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-9 mx-auto">
+					<h1 class="mb-5">
+						Start syncing your Lectio schedule with your Google
+						Calendar today🎉
+					</h1>
+				</div>
+				<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+					<!-- ? Login Buttons -->
+					<div class="col-8 mx-auto">
+						<a class="btn btn-block btn-lg btn-info" href="#getStartedTitle">
+							Get Started!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!--* Guide -->
+	<section class="features-icons bg-light text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+						<div class="features-icons-icon d-flex">
+							<i class="fas fa-mouse-pointer m-auto text-info"></i>
+						</div>
+						<h3>Only 1 Click</h3>
+						<p class="lead mb-0">
+							Forget about creating your schedule manually.
+							Sync your schedule with only 1 click.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+						<div class="features-icons-icon d-flex">
+							<i class="fas fa-file-code m-auto text-info"></i>
+						</div>
+						<h3>Open Source Software</h3>
+						<p class="lead mb-0">
+							Our
+							<a href="https://github.com/fredrikj31/LectioToCal" target="_blank">website</a>
+							and
+							<a href="https://github.com/fredrikj31/LectioAPI" target="_blank">API</a>
+							is fully open-sourced, which means everybody can
+							see and contribute to the code.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="features-icons-item mx-auto mb-0 mb-lg-3">
+						<div class="features-icons-icon d-flex">
+							<i class="fas fa-user-secret m-auto text-info"></i>
+						</div>
+						<h3>Privacy First</h3>
+						<p class="lead mb-0">
+							Both our website and API uses
+							<a href="https://en.wikipedia.org/wiki/HTTPS" target="_blank">HTTPS</a>, which encrypts your
+							login details.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--* Getting Started -->
+	<section id="getStarted" class="features-icons bg-white text-center">
+		<div class="container">
+			<h1>Get Started</h1>
+			<!-- Feedback -->
+			<div id="feedback"></div>
+			<br />
+			<div class="row">
+				<!-- ? Login Buttons -->
+				<div id="syncGoogleLogin" style="display: block" class="col-8 mx-auto">
+					<button id="googleSignInButton" class="btn btn-block btn-lg btn-info">
+						<i class="fab fa-google"></i> Login with Google
+					</button>
+				</div>
+				<!-- ? Lectio Login -->
+				<div id="syncLectioLogin" style="display: none" class="col-8 mx-auto">
+					<h5>Login to Lectio</h5>
+					<br />
+					<div class="form-group">
+						<label for="username">Username:</label>
+						<input type="text" class="form-control" placeholder="Enter Username..." id="username"/>
+					</div>
+					<div class="form-group">
+						<label for="password">Password:</label>
+						<input type="password" class="form-control" placeholder="Enter Password..." id="password"/>
+					</div>
+					<div class="form-group">
+						<label for="personType">Person Type:</label>
+						<select class="form-control" id="personType">
+							<option value="Student">Student</option>
+							<option value="Teacher">Teacher</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="schoolId">School:</label>
+						<select class="form-control" id="schoolId">
+						</select>
+					</div>
+					<button id="lectioLoginButton" class="btn btn-block btn-lg btn-info">
+						Login to Lectio
+					</button>
+				</div>
+				<!-- ? Getting Events -->
+				<div id="syncGetEvents" style="display: none" class="col-8 mx-auto">
+					<h5>Getting lessons from our API</h5>
+					<br />
+					<!--"Processing " + finishLessons + " of " + totalEvents + " lessons " + `(${Math.ceil(finishProcent)}%)`;-->
+					<div class="spinner-border text-info"></div>
+				</div>
+				<!-- ? Upload Progress -->
+				<div id="syncUploadProgress" style="display: none" class="col-8 mx-auto">
+					<h5 id="progressTitle">Processing 0 of 0 lessons 0%</h5>
+					<br />
+					<!--"Processing " + finishLessons + " of " + totalEvents + " lessons " + `(${Math.ceil(finishProcent)}%)`;-->
+					<div class="progress" style="height: 25px">
+						<div class="progress-bar progress-bar-striped progress-bar-animated bg-info">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Image Showcases -->
+	<!--<section class="showcase">
+		<div class="container-fluid p-0">
+			<div class="row no-gutters">
+
+				<div class="col-lg-6 order-lg-2 text-white showcase-img"
+					style="background-image: url('img/bg-showcase-2.jpg');"></div>
+				<div class="col-lg-6 order-lg-1 my-auto showcase-text">
+					<h2>Fully Responsive Design</h2>
+					<p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will
+						look great on any device, whether it's a phone, tablet, or desktop the page will behave
+						responsively!</p>
+				</div>
+			</div>
+			<div class="row no-gutters">
+				<div class="col-lg-6 text-white showcase-img" style="background-image: url('img/bg-showcase-3.jpg');">
+				</div>
+				<div class="col-lg-6 my-auto showcase-text">
+					<h2>Updated For Bootstrap 4</h2>
+					<p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 4 is leading the
+						way in mobile responsive web development! All of the themes on Start Bootstrap are now using
+						Bootstrap 4!</p>
+				</div>
+			</div>
+		</div>
+	</section>-->
+
+	<!--* Testimonials -->
+	<section class="testimonials text-center bg-light">
+		<div class="container">
+			<h2 class="mb-5">What people are saying...</h2>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
+						<img class="img-fluid rounded-circle mb-3" src="./img/man.jpg" alt="" />
+						<h5>John Doe</h5>
+						<p class="font-weight-light mb-0">
+							"This is fantastic! Thanks so much guys!"
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
+						<img class="img-fluid rounded-circle mb-3" src="./img/woman.jpg" alt="" />
+						<h5>Jane Doe</h5>
+						<p class="font-weight-light mb-0">
+							"Bootstrap is amazing. I've been using it to
+							create lots of super nice landing pages."
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
+						<img class="img-fluid rounded-circle mb-3" src="./img/man.jpg" alt="" />
+						<h5>John Doe</h5>
+						<p class="font-weight-light mb-0">
+							"Thanks so much for making these free resources
+							available to us!"
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to Action -->
+	<section class="call-to-action text-white text-center">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-9 mx-auto">
+					<h2 class="mb-4">
+						Don't like using the website? <br />Download the
+						desktop version!
+					</h2>
+				</div>
+				<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+					<div class="form-row">
+						<div class="col-6 mx-auto">
+							<a href="https://github.com/fredrikj31/LectioToCal/releases" target="_blank"
+								class="btn btn-block btn-lg btn-info">Download Now!</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer bg-white">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+					<ul class="list-inline mb-2">
+						<li class="list-inline-item">
+							<a href="mailto:fredrik1206@gmail.com">Contact</a>
+						</li>
+						<li class="list-inline-item">&sdot;</li>
+						<li class="list-inline-item">
+							<a href="#">Terms of Use</a>
+						</li>
+						<li class="list-inline-item">&sdot;</li>
+						<li class="list-inline-item">
+							<a href="#">Privacy Policy</a>
+						</li>
+					</ul>
+					<p class="text-muted small mb-4 mb-lg-0">
+						Made by
+						<a href="https://fredrikj31.github.io" target="_blank">Fredrik Johansen</a>
+						with 🥪 and ❤️
+					</p>
+				</div>
+				<div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+					<ul class="list-inline mb-0">
+						<li class="list-inline-item mr-3">
+							<a href="https://github.com/fredrikj31" target="_blank">
+								<i class="fab fa-github fa-2x fa-fw"></i>
+							</a>
+						</li>
+						<li class="list-inline-item mr-3">
+							<a href="https://twitter.com/fredrikj31" target="_blank">
+								<i class="fab fa-twitter-square fa-2x fa-fw"></i>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="https://www.linkedin.com/in/fredrik-johansen/" target="_blank">
+								<i class="fab fa-linkedin fa-2x fa-fw"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!-- Custom Scripts -->
+	<script src="./js/googleAuth.js"></script>
+	<script src="./js/getSchools.js"></script>
+	<script src="./js/lectioLogin.js"></script>
+	<script src="./js/calendarSync.js"></script>
+	<script src="./js/main.js"></script>
+
+	<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+</body>
+
+</html>
