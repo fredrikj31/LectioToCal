@@ -66,7 +66,7 @@ async function getEvents() {
 		);
 
 		request.execute(function(resp) {
-			console.log(resp);
+			//console.log(resp);
 			resolve(resp.items.length);
 		});
 	});
@@ -95,8 +95,8 @@ async function createCalendar() {
 		);
 
 		request.execute(function(resp) {
-			console.log(resp);
-			resolve("success");
+			//console.log(resp);
+			resolve(resp.result.id);
 		});
 	});
 
@@ -111,7 +111,7 @@ async function getCalendarId() {
 			var found = false;
 			resp.items.forEach((element) => {
 				if (element.summary == "LectioToCal") {
-					console.log("Found it: " + element.id);
+					//console.log("Found it: " + element.id);
 
 					var calendarId = element.id;
 					//console.log(calendarId);
@@ -121,8 +121,8 @@ async function getCalendarId() {
 			});
 
 			if (!found) {
-				console.log("Could not find the calendar");
-				reject("error");
+				//console.log("Could not find the calendar");
+				resolve("error");
 			}
 		});
 	});
@@ -159,8 +159,8 @@ async function clearEvents() {
 
 		request.execute(function (resp) {
 			const events = resp.items;
-			console.log(events);
-			console.log("---------------");
+			//console.log(events);
+			//console.log("---------------");
 
 			events.forEach((element, i) => {
 				setTimeout(() => {
@@ -171,7 +171,7 @@ async function clearEvents() {
 
 					var request2 = gapi.client.calendar.events.delete(params);
 					request2.execute(function(resp) {
-						console.log(resp);
+						//console.log(resp);
 					});
 
 				}, i * 1000);
@@ -339,11 +339,11 @@ async function mainSync(data) {
 	var totalLessons = lectioData.length;
 
 	var resultCalendarId = await getCalendarId();
-	console.log(resultCalendarId);
+	//console.log(resultCalendarId);
 	if (resultCalendarId != "error") {
 		// If calendar already exists
 		var resultEventsList = await getEvents();
-		console.log(resultEventsList);
+		//console.log(resultEventsList);
 		if (resultEventsList != "error") {
 			if (resultEventsList < 1) {
 				// If events is empty

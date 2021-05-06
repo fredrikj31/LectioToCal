@@ -33,6 +33,7 @@ async function startSync() {
 		console.log(totalLessons);*/
 	
 		var resultCalendarId = await getCalendarId();
+		console.log(resultCalendarId);
 		if (resultCalendarId != "error") {
 			// If calendar already exists
 			var resultEventsList = await getEvents();
@@ -49,9 +50,11 @@ async function startSync() {
 				}
 			}
 		} else {
+			//console.log("Hi im here!");
 			// If calendar does not exists
-			await createCalendar();
-			createEvents(lectioData, resultCalendarId, totalLessons)
+			var calenderId = await createCalendar();
+			//console.log(calendarId);
+			createEvents(lectioData, calenderId, totalLessons)
 		}
 
 	}
