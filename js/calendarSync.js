@@ -1,22 +1,9 @@
 function getStartEndDate() {
-	var current = new Date(); // get current date
-	var weekstart = current.getDate() - current.getDay() + 1;
-	var weekend = weekstart + 6; // end day is the first day + 6
-	var monday = new Date(current.setDate(weekstart));
-	var sunday = new Date(current.setDate(weekend));
+	var startOfWeek = moment(moment().startOf('week').toDate().toString()).add(1, 'days');
+	var endOfWeek   = moment(moment().endOf('week').toDate().toString()).add(1, 'days');
 
-	var startDate =
-		monday.getFullYear() +
-		"-" +
-		(monday.getMonth() + 1) +
-		"-" +
-		monday.getDate();
-	var endDate =
-		sunday.getFullYear() +
-		"-" +
-		(sunday.getMonth() + 1) +
-		"-" +
-		sunday.getDate();
+	var startDate = moment(startOfWeek.toString()).format("YYYY-MM-DD")
+	var endDate = moment(endOfWeek.toString()).format("YYYY-MM-DD")
 
 	return [startDate, endDate];
 }
@@ -33,6 +20,7 @@ async function getEvents() {
 	var calendarId = await resultCalendarId;
 
 	var weekDate = getStartEndDate();
+	console.log(weekDate);
 	var startDate = weekDate[0] + "T00:00:00+02:00";
 	var endDate = weekDate[1] + "T23:59:59+02:00";
 
