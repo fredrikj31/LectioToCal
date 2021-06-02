@@ -88,7 +88,8 @@ function handleSignoutClick(event) {
 
 //
 function formatUserInfo(data) {
-	userName.innerText = data["ft"]["Te"];
-	userEmail.innerText = data["ft"]["Qt"];
-	userImage.src = data["ft"]["yJ"];
+	console.log(data.getBasicProfile().getImageUrl())
+	userName.innerText = data.getBasicProfile().getName();
+	userEmail.innerText = data.getBasicProfile().getEmail();
+	userImage.src = data.getBasicProfile().getImageUrl();
 }
